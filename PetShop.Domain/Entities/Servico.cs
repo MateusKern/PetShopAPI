@@ -1,0 +1,15 @@
+﻿public class Servico
+{
+    public Servico(int id, string nome, string descricao, decimal preco)
+    {
+        Id = id;
+        Nome = nome;
+        Descricao = descricao;
+        Preco = preco;
+    }
+
+    public int Id { get; private set; }
+    public string Nome { get; private set; }
+    public string Descricao { get; private set; }
+    public decimal Preco { get; private set; }
+}
