@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
+[Route("api/clientes")]
+[ApiController]
+[Authorize]
 public class ClienteController : BaseController
 {
     private readonly ClienteHandler _clienteHandler;
