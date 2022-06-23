@@ -34,8 +34,8 @@ public class TokenService : ITokenService
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.Now.AddHours(10),
             SigningCredentials = new SigningCredentials(
-                                            new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Token").Value)),
-                                            SecurityAlgorithms.HmacSha256Signature)
+                                    new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetSection("AppSettings:Token").Value)),
+                                    SecurityAlgorithms.HmacSha256Signature)
         };
 
         SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
