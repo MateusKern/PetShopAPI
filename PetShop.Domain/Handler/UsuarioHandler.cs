@@ -25,7 +25,7 @@
         if (usuario is null)
             result.AddNotification(string.Empty, "Login ou senha estão errados");
 
-        if (usuario is not null && usuario.Verificado)
+        if (usuario is not null && !usuario.Verificado)
             result.AddNotification(string.Empty, "Usuário não ativo no sistema");
 
         if (!result.IsValid)
