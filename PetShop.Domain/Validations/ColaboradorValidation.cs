@@ -6,18 +6,18 @@ public static class ColaboradorValidation
     public const int NOME_MAXLENGTH = 50;
     public const int EMAIL_MAXLENGTH = 50;
 
-    public static Contract<Notification> Validacao(string nome, DateOnly? dataNascimento)
+    public static Contract<Notification> Validacao(string nome, DateTime? dataNascimento)
     {
         var contrato = new Contract<Notification>()
             .IsLowerOrEqualsThan(nome, NOME_MAXLENGTH, "Nome");
 
         if (dataNascimento is not null)
-            contrato.IsLowerThan(new DateTime(dataNascimento.Value.Year, dataNascimento.Value.Month, dataNascimento.Value.Day), DateTime.Now, "DataNascimento");
+            contrato.IsLowerThan(dataNascimento.Value, DateTime.Now, "DataNascimento");
 
         return contrato;
     }
 
-    public static Contract<Notification> Validacao(string nome, DateOnly? dataNascimento, string email, List<ETipoAcesso> acessos)
+    public static Contract<Notification> Validacao(string nome, DateTime? dataNascimento, string email, List<ETipoAcesso> acessos)
     {
         var contrato = Validacao(nome, dataNascimento);
 

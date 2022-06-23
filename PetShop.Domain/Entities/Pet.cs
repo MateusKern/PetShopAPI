@@ -1,6 +1,6 @@
 ﻿public class Pet
 {
-    private Pet(int id, string nome, DateOnly? dataNascimento, ETipoPet tipo, string raca, string cor, string porte)
+    private Pet(int id, string nome, DateTime? dataNascimento, ETipoPet tipo, string raca, string cor, string porte)
     {
         Id = id;
         Nome = nome;
@@ -11,7 +11,7 @@
         Porte = porte;
     }
 
-    public Pet(int id, string nome, DateOnly? dataNascimento, int? idade, ETipoPet tipo, string raca, string cor, string porte)
+    public Pet(int id, string nome, DateTime? dataNascimento, int? idade, ETipoPet tipo, string raca, string cor, string porte)
     {
         Id = id;
         Nome = nome;
@@ -24,12 +24,12 @@
 
     public int Id { get; private set; }
     public string Nome { get; private set; }
-    public DateOnly? DataNascimento { get; private set; }
+    public DateTime? DataNascimento { get; private set; }
     public ETipoPet Tipo { get; private set; }
     public string Raca { get; private set; }
     public string Cor { get; private set; }
     public string Porte { get; private set; }
 
-    private DateOnly RetornaDataNascimento(int idade) =>
-        DateOnly.FromDateTime(DateTime.Now.AddYears(-idade));
+    private DateTime RetornaDataNascimento(int idade) =>
+        DateTime.Now.AddYears(-idade);
 }

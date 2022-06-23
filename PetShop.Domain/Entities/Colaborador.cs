@@ -1,6 +1,6 @@
 ﻿public class Colaborador : EntityBase
 {
-    private Colaborador(int id, string nome, DateOnly? dataNascimento, string email)
+    private Colaborador(int id, string nome, DateTime? dataNascimento, string email)
     {
         Id = id;
         Nome = nome;
@@ -8,7 +8,7 @@
         Email = email;
     }
 
-    public Colaborador(string nome, DateOnly? dataNascimento, string email, List<ETipoAcesso> acessos)
+    public Colaborador(string nome, DateTime? dataNascimento, string email, List<ETipoAcesso> acessos)
     {
         Nome = nome;
         DataNascimento = dataNascimento;
@@ -18,11 +18,11 @@
 
     public int Id { get; private set; }
     public string Nome { get; private set; }
-    public DateOnly? DataNascimento { get; private set; }
+    public DateTime? DataNascimento { get; private set; }
     public string Email { get; private set; }
     public Usuario Usuario { get; private set; }
 
-    public void EditarColaborador(string nome, DateOnly? dataNascimento)
+    public void EditarColaborador(string nome, DateTime? dataNascimento)
     {
         Nome = nome;
         DataNascimento = dataNascimento;
