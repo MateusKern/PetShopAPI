@@ -4,11 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]")]
 [ApiController]
 [AllowAnonymous]
-public class UsuarioController : ControllerBase
+public class UsuarioController : BaseController
 {
-    //[HttpPost("Login")]
-    //public async Task<IActionResult> Login([FromBody] LoginCommand command)
-    //{
-    //    Ok("Logado");
-    //}
+    private readonly UsuarioHandler _usuarioHandler;
+
+    public UsuarioController(UsuarioHandler usuarioHandler)
+    {
+        _usuarioHandler = usuarioHandler;
+    }
+
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login([FromBody] LoginCommand command) =>
+        ReturnActionResult(await _usuarioHandler.HandlerAsync(command));
 }
