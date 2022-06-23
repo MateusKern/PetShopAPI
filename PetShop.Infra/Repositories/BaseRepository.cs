@@ -1,4 +1,6 @@
-﻿public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
+﻿using Microsoft.EntityFrameworkCore;
+
+public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
     protected readonly DatabaseContext _databaseContext;
 
@@ -21,6 +23,9 @@
 
     public async Task<TEntity> ObterPorId(int id) =>
         await _databaseContext.Set<TEntity>().FindAsync(id);
+
+    public async Task<List<TEntity>> ObterTodos() =>
+        await _databaseContext.Set<TEntity>().ToListAsync();
 
     public void Remover(TEntity entity) =>
         _databaseContext.Remove(entity);

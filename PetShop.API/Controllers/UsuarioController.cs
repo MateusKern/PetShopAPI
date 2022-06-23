@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-[Route("api/[controller]")]
+[Route("api")]
 [ApiController]
 [AllowAnonymous]
 public class UsuarioController : BaseController
@@ -13,7 +13,7 @@ public class UsuarioController : BaseController
         _usuarioHandler = usuarioHandler;
     }
 
-    [HttpPost("Login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginCommand command) =>
         ReturnActionResult(await _usuarioHandler.HandlerAsync(command));
 }
