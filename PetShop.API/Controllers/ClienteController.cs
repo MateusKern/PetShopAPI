@@ -23,4 +23,12 @@ public class ClienteController : BaseController
     public async Task<IActionResult> NovoCliente([FromBody] NewClienteCommand command) =>
         ReturnActionResult(await _clienteHandler.HandlerAsync(command));
 
+    [HttpPut]
+    public async Task<IActionResult> EditarCliente([FromBody] EditClienteCommand command) =>
+        ReturnActionResult(await _clienteHandler.HandlerAsync(command));
+
+    [HttpDelete]
+    public async Task<IActionResult> DeletarCliente([FromBody] DeleteCommand command) =>
+        ReturnActionResult(await _clienteHandler.HandlerAsync(command));
+
 }
