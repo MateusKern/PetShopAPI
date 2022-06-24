@@ -34,5 +34,4 @@ public class ClienteController : BaseController
     [HttpDelete]
     public async Task<IActionResult> DeletarCliente([FromBody] DeleteCommand command) =>
         ReturnActionResult(await _clienteHandler.HandlerAsync(command));
-
 }

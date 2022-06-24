@@ -15,11 +15,13 @@ builder.Services.AddDbContext<DatabaseContext>(options => {
 
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddScoped<ClienteHandler>();
 builder.Services.AddScoped<ColaboradorHandler>();
+builder.Services.AddScoped<ProdutoHandler>();
 builder.Services.AddScoped<UsuarioHandler>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
