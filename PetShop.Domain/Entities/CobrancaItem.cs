@@ -1,6 +1,6 @@
 ﻿public class CobrancaItem
 {
-    public CobrancaItem(int id, int? produtoId, int? servicoId, decimal quantidade, decimal precoUnitario, int? cobrancaId)
+    private CobrancaItem(int id, int? produtoId, int? servicoId, decimal quantidade, decimal precoUnitario, int? cobrancaId)
     {
         Id = id;
         ProdutoId = produtoId;
@@ -8,6 +8,14 @@
         Quantidade = quantidade;
         PrecoUnitario = precoUnitario;
         CobrancaId = cobrancaId;
+    }
+
+    public CobrancaItem(int? produtoId, int? servicoId, decimal quantidade, decimal precoUnitario)
+    {
+        ProdutoId = produtoId;
+        ServicoId = servicoId;
+        Quantidade = quantidade;
+        PrecoUnitario = precoUnitario;
     }
 
     public int Id { get; private set; }
