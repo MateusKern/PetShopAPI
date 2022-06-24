@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
+[Route("api/cobrancas")]
+[ApiController]
+[Authorize]
 public class CobrancaController : BaseController
 {
     private readonly CobrancaHandler _cobrancaHandler;
@@ -7,15 +11,23 @@ public class CobrancaController : BaseController
 
     public CobrancaController(CobrancaHandler cobrancaHandler, ICobrancaRepository cobrancaRepository)
     {
-        this._cobrancaHandler = cobrancaHandler;
-        this._cobrancaRepository = cobrancaRepository;
+        _cobrancaHandler = cobrancaHandler;
+        _cobrancaRepository = cobrancaRepository;
     }
+
+    [HttpGet]
+    public async Task<IActionResult> PegarCobracas() =>
+        ReturnActionResult(new ResultComand(await _cobrancaRepository.ObterTodos()));
+
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> PegarCobrancaPorId(int id) =>
+        ReturnActionResult(new ResultComand(await _cobrancaRepository.ObterPorId(id)));
 
     [HttpPost]
     public async Task<IActionResult> NovaCobranca([FromBody] NewCobrancaCommand command) =>
         ReturnActionResult(await _cobrancaHandler.HandlerAsync(command));
 
-    [HttpPost]
+    [HttpPut]
     public async Task<IActionResult> PagamentoCobranca([FromBody] PaymentCobrancaCommand command) =>
         ReturnActionResult(await _cobrancaHandler.HandlerAsync(command));
 }
