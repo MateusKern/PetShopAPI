@@ -4,5 +4,5 @@
     Gato = 2,
     Passaro = 3,
     Peixe = 4,
-    Tartaruga
+    Tartaruga = 5
 }

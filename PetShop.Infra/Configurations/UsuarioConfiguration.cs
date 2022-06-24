@@ -17,7 +17,7 @@ internal class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
         builder.Property(a => a.Acessos)
             .HasMaxLength(numberOfEnums + (numberOfEnums-1))
             .HasConversion(
-                a => string.Join(',', a),
+                a => string.Join(',', a.Select(b => b.GetHashCode())),
                 s => s.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(s => (ETipoAcesso)Convert.ToInt32(s)).ToList() ?? new List<ETipoAcesso>())
             .Metadata.SetValueComparer(valueComparer);
     }
