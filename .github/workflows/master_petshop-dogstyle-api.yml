@@ -7,10 +7,9 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: windows-latest
 
     steps:
@@ -34,32 +33,7 @@ jobs:
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
         
       - name: Generate scripts
-        run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/migration-script.sql --project PetShop.API
-
-      - name: Upload migration-script.sql for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: migration-script
-          path: ${{env.DOTNET_ROOT}}/sql/migration-script.sql
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: .net-app
+        run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/migration-script.sql --idempotent --project PetShop.API
 
       - name: Azure SQL Deploy
         uses: Azure/sql-action@v1.3
@@ -69,13 +43,12 @@ jobs:
           # The connection string, including authentication information, for the Azure SQL Server database.
           connection-string: ${{ secrets.CONNECTION_STRING }}
           # Path to SQL script file to deploy
-          sql-file: migration-script/migration-script.sql
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
+          sql-file: ${{env.DOTNET_ROOT}}/sql/migration-script.sql
+          
+      - name: Run Azure webapp deploy action using publish profile credentials
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'petshop-dogstyle-api'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_394CE20008F94B01AF05CA0673305854 }}
-          package: .
+          package: ${{env.DOTNET_ROOT}}/myapp
