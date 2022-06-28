@@ -36,6 +36,12 @@ jobs:
       - name: Generate scripts
         run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/migration-script.sql --project PetShop.API
 
+      - name: Upload migration-script.sql for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: migration-script.sql
+          path: ${{env.DOTNET_ROOT}}/sql/migration-script.sql
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
