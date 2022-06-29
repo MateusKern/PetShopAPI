@@ -45,8 +45,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllers(c => c.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
-    {
-        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+{
+    c.SwaggerDoc("v1",
+        new OpenApiInfo
+        {
+            Title = $"PetShop DogStyle",
+            Version = "v1",
+            Description = "API Rest relacionada ao PetShop DogStyle",
+            Contact = new OpenApiContact
+            {
+                Name = "Mateus Garrido Kern",
+                Url = new Uri("https://github.com/MateusKern/PetShopAPI"),
+                Email = "mateus.g.kern@gmail.com"
+            }
+        });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
             Description =
                 "JWT Authorization Header - utilizado com Bearer Authentication.\r\n\r\n" +
@@ -59,29 +73,30 @@ builder.Services.AddSwaggerGen(c =>
             BearerFormat = "JWT"
         });
 
-        c.AddSecurityRequirement(
-            new OpenApiSecurityRequirement {
-                {
-                    new OpenApiSecurityScheme {
-                        Reference = new OpenApiReference {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
-                }
+    c.AddSecurityRequirement(
+        new OpenApiSecurityRequirement {
+            {
+                new OpenApiSecurityScheme {
+                    Reference = new OpenApiReference {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
             }
-        );
+        }
+    );
     }
 );
 
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-//}
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", $"PetShop DogStyle");
+    c.RoutePrefix = "documentation";
+});
 
 app.UseHttpsRedirection();
 app.UseRouting();
