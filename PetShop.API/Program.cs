@@ -6,7 +6,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy => policy.AllowAnyOrigin().AllowAnyHeader()
+    );
+});
 
 builder.Services.AddDbContext<DatabaseContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"));
@@ -99,7 +104,11 @@ app.UseSwaggerUI(c =>
 });
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
+
+app.UseCors();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
