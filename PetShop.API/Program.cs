@@ -13,8 +13,8 @@ builder.Services.AddCors(options =>
     );
 });
 
-builder.Services.AddDbContext<DatabaseContext>(options => {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"));
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>(options => {
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Connection"));
     options.EnableSensitiveDataLogging();
 });
 
