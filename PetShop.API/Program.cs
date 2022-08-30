@@ -96,6 +96,12 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+    dataContext.Database.Migrate();
+}
+
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
