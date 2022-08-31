@@ -102,7 +102,6 @@ using (var scope = app.Services.CreateScope())
     dataContext.Database.Migrate();
 }
 
-app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
