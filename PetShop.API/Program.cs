@@ -13,8 +13,8 @@ builder.Services.AddCors(options =>
     );
 });
 
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<DatabaseContext>(options => {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Connection"));
+builder.Services.AddDbContext<DatabaseContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"), b => b.MigrationsAssembly("PetShop.Infra"));
     options.EnableSensitiveDataLogging();
 });
 
@@ -95,12 +95,6 @@ builder.Services.AddSwaggerGen(c =>
 );
 
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var dataContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-    dataContext.Database.Migrate();
-}
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>

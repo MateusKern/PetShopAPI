@@ -1,12 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace PetShop.Infra.Migrations
 {
-    public partial class InitialDatabase : Migration
+    public partial class Migration_Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,11 +13,11 @@ namespace PetShop.Infra.Migrations
                 name: "Produto",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nome = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    Descricao = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    Preco = table.Column<decimal>(type: "numeric(7,2)", precision: 7, scale: 2, nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Preco = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,11 +28,11 @@ namespace PetShop.Infra.Migrations
                 name: "Servico",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nome = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    Descricao = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    Preco = table.Column<decimal>(type: "numeric(7,2)", precision: 7, scale: 2, nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Preco = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,12 +43,12 @@ namespace PetShop.Infra.Migrations
                 name: "Usuario",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Login = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Senha = table.Column<string>(type: "text", nullable: false),
-                    Verificado = table.Column<bool>(type: "boolean", nullable: false),
-                    Acessos = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Verificado = table.Column<bool>(type: "bit", nullable: false),
+                    Acessos = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,13 +59,13 @@ namespace PetShop.Infra.Migrations
                 name: "Cliente",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nome = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Telefone = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
-                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Cpf = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
-                    UsuarioId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Cpf = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,12 +82,12 @@ namespace PetShop.Infra.Migrations
                 name: "Colaborador",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nome = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    DataNascimento = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    UsuarioId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -105,15 +104,15 @@ namespace PetShop.Infra.Migrations
                 name: "Pet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nome = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    DataNascimento = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Tipo = table.Column<int>(type: "integer", nullable: false),
-                    Raca = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    Cor = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    Porte = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    ClienteId = table.Column<int>(type: "integer", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Tipo = table.Column<int>(type: "int", nullable: false),
+                    Raca = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Cor = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Porte = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -129,13 +128,13 @@ namespace PetShop.Infra.Migrations
                 name: "Cobranca",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DataCobranca = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DataPagamento = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Desconto = table.Column<decimal>(type: "numeric(6,2)", precision: 6, scale: 2, nullable: false),
-                    ClienteId = table.Column<int>(type: "integer", nullable: true),
-                    ColaboradorId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DataCobranca = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataPagamento = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Desconto = table.Column<decimal>(type: "decimal(6,2)", precision: 6, scale: 2, nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: true),
+                    ColaboradorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,13 +156,13 @@ namespace PetShop.Infra.Migrations
                 name: "CobrancaItem",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ProdutoId = table.Column<int>(type: "integer", nullable: true),
-                    ServicoId = table.Column<int>(type: "integer", nullable: true),
-                    Quantidade = table.Column<decimal>(type: "numeric(10,3)", precision: 10, scale: 3, nullable: false),
-                    PrecoUnitario = table.Column<decimal>(type: "numeric(9,2)", precision: 9, scale: 2, nullable: false),
-                    CobrancaId = table.Column<int>(type: "integer", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProdutoId = table.Column<int>(type: "int", nullable: true),
+                    ServicoId = table.Column<int>(type: "int", nullable: true),
+                    Quantidade = table.Column<decimal>(type: "decimal(10,3)", precision: 10, scale: 3, nullable: false),
+                    PrecoUnitario = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false),
+                    CobrancaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
