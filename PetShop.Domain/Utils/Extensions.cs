@@ -16,7 +16,7 @@ public static class Extensions
     public static int MaximumNumberPossible(int precision, int scale) =>
         Convert.ToInt32("9".PadRight(precision - scale,'9'));
 
-    public static Contract<Notification> ValidateListCommand(List<Command> listCommand, string key)
+    public static Contract<Notification> ValidateListCommand<T>(List<T> listCommand, string key) where T : Command
     {
         var contract = new Contract<Notification>();
 

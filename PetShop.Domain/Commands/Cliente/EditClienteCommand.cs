@@ -13,15 +13,8 @@
     public override void Validate()
     {
         AddNotifications(
-            ClienteValidation.Validacao(Nome, Telefone, Email, Cpf)
+            ClienteValidation.Validacao(Nome, Telefone, Email, Cpf),
+            Extensions.ValidateListCommand(Pets, "Pets")
         );
-
-        if (Pets is not null)
-            for (int i = 0; i < Pets.Count; i++)
-            {
-                Pets[i].Validate();
-                foreach (var notification in Pets[i].Notifications)
-                    AddNotification($"Pets.{i}.{notification.Key}", notification.Message);
-            }
     }
 }
