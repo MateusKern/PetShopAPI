@@ -17,7 +17,7 @@ public class ClienteController : BaseController
 
     [HttpGet]
     public async Task<IActionResult> PegarClientes() =>
-        ReturnActionResult(new ResultComand(await _clienteRepository.ObterTodos()));
+        ReturnActionResult(new ResultComand(await _clienteRepository.ObterTodosComPets()));
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> PegarClientePorId(int id) =>
