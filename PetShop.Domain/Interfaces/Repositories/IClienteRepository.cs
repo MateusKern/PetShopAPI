@@ -1,5 +1,7 @@
-﻿public interface IClienteRepository : IBaseRepository<Cliente>
+﻿using PetShop.Domain.Results;
+
+public interface IClienteRepository : IBaseRepository<Cliente>
 {
     Task<bool> ExistsCliente(int id);
-    Task<List<Cliente>> ObterTodosComPets();
+    Task<List<ClienteResult>> ObterTodosComPets();
 }

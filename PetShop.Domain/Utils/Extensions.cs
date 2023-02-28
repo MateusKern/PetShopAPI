@@ -30,4 +30,42 @@ public static class Extensions
 
         return contract;
     }
+
+    public static string ReturnFormattedCpf(this string cpf)
+    {
+        if (cpf.Length > 3)
+            cpf = cpf.Insert(3, ".");
+
+        if (cpf.Length > 7)
+            cpf = cpf.Insert(7, ".");
+
+        if (cpf.Length > 11)
+            cpf = cpf.Insert(11, "-");
+
+        return cpf;
+    }
+
+    public static string ReturnFormattedPhone(this string telefone)
+    {
+        telefone = telefone.RemoveSpecialCharacters();
+        int telefoneLength = telefone.Length;
+
+        switch (telefoneLength)
+        {
+            case 11:
+            case 10:
+                telefone = telefone.Insert(0, "(");
+                telefone = telefone.Insert(3, ") ");
+                telefone = telefone.Insert(telefoneLength - 1, "-");
+                break;
+            case 9:
+            case 8:
+                telefone = telefone.Insert(telefoneLength - 4, "-");
+                break;
+            default:
+                break;
+        }
+
+        return telefone;
+    }
 }
