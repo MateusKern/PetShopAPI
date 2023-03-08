@@ -17,7 +17,7 @@ public class CobrancaController : BaseController
 
     [HttpGet]
     public async Task<IActionResult> PegarCobracas() =>
-        ReturnActionResult(new ResultComand(await _cobrancaRepository.ObterTodos()));
+        ReturnActionResult(new ResultComand(await _cobrancaRepository.ObterTodasComItens()));
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> PegarCobrancaPorId(int id) =>
